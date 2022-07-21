@@ -89,7 +89,13 @@ def main():
     st.write("---")
 
     
-    
+    webrtc_streamer(
+    # ...
+    rtc_configuration={  # Add this config
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+    }
+    # ...
+        )
     with st.container():
         
         left,right=st.columns(2)
