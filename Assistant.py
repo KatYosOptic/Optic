@@ -1,6 +1,8 @@
 import threading
 from typing import Union
 import av
+from streamlit import caching
+
 import requests
 import numpy as np
 import streamlit as st
@@ -136,3 +138,4 @@ def main():
 if __name__ == "__main__":
     
     main()
+caching.clear_cache()
