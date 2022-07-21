@@ -101,7 +101,8 @@ def main():
         left,right=st.columns(2)
         with left:
             st.title("↓ Let's start")
-            ctx = webrtc_streamer(key="snapshot", video_transformer_factory=VideoTransformer)
+            ctx = webrtc_streamer(key="snapshot", video_transformer_factory=VideoTransformer,rtc_configuration={  # Add this config
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]})
             if ctx.video_transformer:
                 snap = st.button("Snapshot")
                 if snap:
