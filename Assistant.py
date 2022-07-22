@@ -29,7 +29,7 @@ from tensorflow.keras.preprocessing import image as image_utils
 from PIL import Image
 
 label="1"
-@st.cache()
+
 def main():
     global label
     genre = ['homme' ,'femme', 'enfant']
@@ -134,7 +134,7 @@ def main():
                     lunette=" Ligne des sourcils"
                 lunette=lunette.replace(" ","+")
                 st.subheader("https://katyos2.katyos.com/3-lunettes-de-vue?q=Formes-"+lunette)
-
+                del ctx    
                 
 if __name__ == "__main__":
     
