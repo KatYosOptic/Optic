@@ -12,7 +12,7 @@ import streamlit as st
 from io import StringIO
 import pickle
 
-@st.cache(hash_funcs={StringIO: StringIO.getvalue}, suppress_st_warning=True)
+
 def teachable_machine_classification(img):
     # Load the model
     model = keras.models.load_model('model.h5')
