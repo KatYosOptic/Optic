@@ -29,7 +29,7 @@ from tensorflow.keras.preprocessing import image as image_utils
 from PIL import Image
 
 label="1"
-@st.cache()
+
 def main():
     global label
     genre = ['homme' ,'femme', 'enfant']
