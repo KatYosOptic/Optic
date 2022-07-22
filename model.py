@@ -12,10 +12,14 @@ import streamlit as st
 from io import StringIO
 import pickle
 
+@st.cache()
+def load_model():
+    return keras.models.load_model('model.h5')
+
 
 def teachable_machine_classification(img):
     # Load the model
-    model = keras.models.load_model('model.h5')
+    model = load_model()
     
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
     alphabet = ('heart','oblong','oval','round','square')
