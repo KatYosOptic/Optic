@@ -8,7 +8,7 @@ from streamlit_option_menu import option_menu
 st.set_page_config(page_title="KatYos2",page_icon=":tada:",layout="wide")
 from typing import Union
 import av
-from model import teachable_machine_classification
+from model import teachable_machine_classification,load_model
 from model import class_model
 import mediapipe as mp
 from image_detec import object_detection_image
