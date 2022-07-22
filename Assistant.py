@@ -37,7 +37,7 @@ def main():
     styles = ['fashion', 'professionnel', 'luxe', 'classique' ,'sport' ,'vintage']
     utilisations = ['sortie en mer', 'voiture', 'quotidienne', 'lecture', 'randonnée', 'vélo']
     matiere = ['acétate' ,'plastique', 'fibres de carbonne', 'bois','titane', 'metal']
-    formes_de_montures = ['ligne de sourcil', 'œil de chat', 'papillon', 'wayfarer', 'rectangulaire', 'ovale' ,'verre unique',           'rectangulaire ovale', 'masque', 'aviator' ,'carré']
+    formes_de_montures = ['ligne de sourcil', 'œil de chat', 'papillon', 'wayfarer', 'rectangulaire', 'ovale' ,'verre unique','rectangulaire ovale', 'masque', 'aviator' ,'carré']
     mp_drawing = mp.solutions.drawing_utils
     mp_holistic = mp.solutions.holistic
     mp_drawing.DrawingSpec(color=(0,0,255), thickness=2, circle_radius=2)
@@ -105,8 +105,7 @@ def main():
                         out_image = ctx.video_transformer.out_image
                         
                     if out_image is not None:
-                        my_path = os.path.abspath(os.path.dirname(__file__))       
-                        cv2.imwrite(os.path.join(my_path, "../Data/"+"filename.jpg"), out_image)       
+                        my_path = os.path.abspath(os.path.dirname(__file__))              
                         label=object_detection_video(out_image)
                         st.image(out_image, channels="BGR")
                         st.subheader("Your face shape is "+label.title())         
@@ -127,7 +126,6 @@ def main():
             label=label.replace('square','0')
             x=int(label)
             if st.button('Next'):
-                
                 lunette=class_model(gender,typee,styls,util,mats,x)
                 st.subheader("Seems like "+lunette.title()+" fits you well")
                 st.subheader("Please click below to redirect you to our shop")
@@ -135,6 +133,10 @@ def main():
                     lunette=" Ligne des sourcils"
                 lunette=lunette.replace(" ","+")
                 st.subheader("https://katyos2.katyos.com/3-lunettes-de-vue?q=Formes-"+lunette)
+                class_model.clear()
+                object_detection_video.clear()
+                del ctx
+                
 if __name__ == "__main__":
     
     main()
