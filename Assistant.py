@@ -13,17 +13,11 @@ from streamlit_webrtc import VideoTransformerBase, webrtc_streamer
 import mediapipe as mp
 import streamlit as st
 import requests
-from PIL import Image
 from streamlit_lottie import st_lottie
-from streamlit_option_menu import option_menu
 st.set_page_config(page_title="KatYos",page_icon="images\logo.png",layout="wide")
 from io import StringIO
 from model import teachable_machine_classification
 from model import class_model
-
-from image_detec import object_detection_image
-from image_detec import object_detection_video
-
 import matplotlib.pyplot as plt
 from tensorflow.keras.preprocessing import image as image_utils
 from PIL import Image
@@ -59,7 +53,7 @@ def main():
 
             self.out_image = None
 
-        def transform(self, frame: av.VideoFrame) -> np.ndarray:
+        def recv(self, frame: av.VideoFrame) -> np.ndarray:
             out_image = frame.to_ndarray(format="bgr24")
             out_image = process(out_image)
             with self.frame_lock:
