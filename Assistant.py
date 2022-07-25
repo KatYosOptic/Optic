@@ -102,7 +102,7 @@ def main():
                         
                     if out_image is not None:
                         my_path = os.path.abspath(os.path.dirname(__file__))              
-                        label=object_detection_video(out_image)
+                        label=teachable_machine_classification(out_image)
                         st.image(out_image, channels="BGR")
                         st.subheader("Your face shape is "+label.title())         
                     else:
