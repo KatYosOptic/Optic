@@ -53,7 +53,7 @@ def main():
 
             self.out_image = None
 
-        def recv(self, frame: av.VideoFrame) -> np.ndarray:
+        def transform(self, frame: av.VideoFrame) -> np.ndarray:
             out_image = frame.to_ndarray(format="bgr24")
             out_image = process(out_image)
             with self.frame_lock:
