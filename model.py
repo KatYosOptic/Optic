@@ -7,8 +7,7 @@
 import keras
 from PIL import Image, ImageOps
 import numpy as np
-from tensorflow.keras.preprocessing import image as image_utils
-import streamlit as st
+
 from io import StringIO
 import pickle
 
@@ -18,8 +17,7 @@ def load_model():
 
 @st.cache(hash_funcs={StringIO: StringIO.getvalue}, suppress_st_warning=True)
 def teachable_machine_classification(img):
-    # Load the model
-    model = load_model()
+    model = keras.models.load_model('model.h5')
     
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
     alphabet = ('heart','oblong','oval','round','square')
@@ -28,8 +26,9 @@ def teachable_machine_classification(img):
         dictionary[i] = alphabet[i]
     # Create the array of the right shape to feed into the keras model
     size = (224,224)
+    img = Image.fromarray(img)
     image = ImageOps.fit(img, size, Image.ANTIALIAS)
-
+    
     #turn the image into a numpy array
     image_array = np.asarray(image)
 
