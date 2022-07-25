@@ -29,7 +29,7 @@ from tensorflow.keras.preprocessing import image as image_utils
 from PIL import Image
 
 label="1"
- @st.cache(hash_funcs={StringIO: StringIO.getvalue}, suppress_st_warning=True)
+@st.cache(hash_funcs={StringIO: StringIO.getvalue}, suppress_st_warning=True)
 def process(image):
     image.flags.writeable = False
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
