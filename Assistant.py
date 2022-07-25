@@ -29,7 +29,24 @@ from tensorflow.keras.preprocessing import image as image_utils
 from PIL import Image
 
 label="1"
-
+ @st.cache(hash_funcs={StringIO: StringIO.getvalue}, suppress_st_warning=True)
+def process(image):
+    image.flags.writeable = False
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    results = holistic.process(image)
+    image.flags.writeable = True
+    image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+    mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACEMESH_CONTOURS, 
+                                mp_drawing.DrawingSpec(color=(80,110,10), thickness=1, circle_radius=1),
+                                mp_drawing.DrawingSpec(color=(80,256,121), thickness=1, circle_radius=1)
+                                )
+    return cv2.flip(image, 1)
+@st.cache(hash_funcs={StringIO: StringIO.getvalue}, suppress_st_warning=True)
+def load_lottie1(url):
+    r=requests.get(url)
+    if r.status_code!=200:
+        return None
+    return r.json()
 def main():
     global label
     genre = ['homme' ,'femme', 'enfant']
@@ -60,26 +77,10 @@ def main():
 
                 self.out_image = out_image
             return out_image
-    @st.cache(hash_funcs={StringIO: StringIO.getvalue}, suppress_st_warning=True)
-    def process(image):
-        image.flags.writeable = False
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        results = holistic.process(image)
-        image.flags.writeable = True
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        mp_drawing.draw_landmarks(image, results.face_landmarks, mp_holistic.FACEMESH_CONTOURS, 
-                                    mp_drawing.DrawingSpec(color=(80,110,10), thickness=1, circle_radius=1),
-                                    mp_drawing.DrawingSpec(color=(80,256,121), thickness=1, circle_radius=1)
-                                    )
-        return cv2.flip(image, 1)
+   
 
     flag=1
-    @st.cache(hash_funcs={StringIO: StringIO.getvalue}, suppress_st_warning=True)
-    def load_lottie1(url):
-        r=requests.get(url)
-        if r.status_code!=200:
-            return None
-        return r.json()
+
 
     person=load_lottie1("https://assets4.lottiefiles.com/packages/lf20_2cbmucbb.json")
     
