@@ -60,7 +60,7 @@ def main():
 
                 self.out_image = out_image
             return out_image
-
+    @st.cache(hash_funcs={StringIO: StringIO.getvalue}, suppress_st_warning=True)
     def process(image):
         image.flags.writeable = False
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -74,6 +74,7 @@ def main():
         return cv2.flip(image, 1)
 
     flag=1
+    @st.cache(hash_funcs={StringIO: StringIO.getvalue}, suppress_st_warning=True)
     def load_lottie1(url):
         r=requests.get(url)
         if r.status_code!=200:
